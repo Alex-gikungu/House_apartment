@@ -1,0 +1,64 @@
+/* src/pages/About.css */
+.about-container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .about-card {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+  }
+  
+  .about-card:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  }
+  
+  .core-values {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .value-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+  }
+  
+  .value-item span {
+    margin-left: 10px;
+  }
+  
+  .about-image {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+  
+  .map-container {
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  button {
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for button hover effects */
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white; /* Change text color on hover */
+  }
+
+  /* src/pages/About.css */
+.working-hours {
+    margin-top: 20px;
+  }
+  
+  .status-indicator {
+    margin-top: 10px;
+    font-size: 1.5em; /* Adjust size as needed */
+  }

@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap styles
-
 import Navigation from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Apartments from "./pages/Apartments.jsx";
 import Booking from "./pages/Bookings.jsx";
 import Contact from "./pages/Contact.jsx";
-import ApartmentDetail from "./pages/AddApartment.jsx";
+import ApartmentDetail from "./pages/AddApartment.jsx"; // Note: Check if this should be a different component
 import AddApartment from "./pages/AddApartment.jsx"; // Import AddApartment component
 import Register from "./pages/Register"; // Import Register component
 import Login from "./pages/Login"; // Import Login component
+import About from "./pages/About"; // Import About component
+import Favorites from "./pages/Favorites.jsx";                                
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
@@ -41,6 +42,8 @@ const App = () => {
           <Route path="/add-apartment" element={<AddApartment />} /> {/* Correct route */}
           <Route path="/register" element={<Register />} /> {/* Route for Register */}
           <Route path="/login" element={<Login onLogin={handleLogin} onLogout={handleLogout} />} /> {/* Route for Login */}
+          <Route path="/about" element={<About />} /> {/* Route for About */}
+          <Route path="/favorites" element={<Favorites />} /> {/* Fixed: Use element instead of component */}
         </Routes>
       </div>
       <Footer />

@@ -10,17 +10,23 @@ const Navigation = ({ isLoggedIn, onLogout }) => {
     <Navbar bg="info" variant="light" expand="lg" className="mb-4">
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold">
-          <FontAwesomeIcon icon={faHouse} size="2x" className="me-2" /> {/* Add the house icon */}
-          Apartment Locator
+          <FontAwesomeIcon icon={faHouse} size="2x" className="me-2" />
+          Apartment Locator 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/" className="me-3">
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to="/about" className="me-3">
+              About
+            </Nav.Link>
             <Nav.Link as={Link} to="/apartments" className="me-3">
               Apartments
+            </Nav.Link>
+            <Nav.Link as={Link} to="/favorites" className="me-3">
+              Favorites
             </Nav.Link>
             {isLoggedIn && (
               <Button

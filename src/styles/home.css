@@ -106,7 +106,6 @@ body, html {
 
 .apartments h2 {
   font-size: 36px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin-bottom: 20px;
   color: white;
 }
@@ -121,16 +120,37 @@ body, html {
   display: flex;
   flex-direction: column;
   height: 100%;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apartment-card.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.apartment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .apartment-card img {
   height: 200px;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0; /* Match rounded top corners */
   object-fit: cover;
+}
+
+.apartment-card .apartment-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .card-body {
   flex-grow: 1;
+  padding: 15px; /* Consistent padding */
 }
 
 .card-title {
@@ -146,19 +166,36 @@ body, html {
   color: #666;
 }
 
+.apartment-card .button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between buttons */
+}
+
 .apartment-card button {
   background: #ff9800;
   color: white;
   border: none;
   padding: 10px;
   width: 100%;
+  height: 50px;
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
+  font-size : 16px; /* Override general button font-size */
 }
 
 .apartment-card button:hover {
   background: #e68900;
+}
+
+.apartment-card .glow-on-hover {
+  transition: all 0.3s ease-in-out;
+}
+
+.apartment-card .glow-on-hover:hover {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  transform: scale(1.05);
 }
 
 /* Footer */
@@ -189,14 +226,333 @@ body, html {
   text-decoration: underline;
 }
 
-.close-button {
-  background-color: orange;
+.no-bullets {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* General Button Styling */
+button {
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Primary Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
   color: white;
   border: none;
 }
 
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #003d80);
+}
+
+/* Success (Book Visit) */
+.btn-success {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #1e7e34, #155724);
+}
+
+/* Favorite Button */
+.favorite-btn {
+  border: 2px solid #ff9800;
+  color: #ff9800;
+  background: transparent;
+  transition: background 0.3s, color 0.3s;
+}
+
+.favorite-btn:hover {
+  background: #ff9800;
+  color: white;
+}
+
+/* If Selected */
+.favorite-btn.selected {
+  background: #ff9800;
+  color: white;
+  border: 2px solid #e68900;
+}
+
+/* Close Button */
+.close-button {
+  background: #6c757d;
+  color: white;
+}
+
 .close-button:hover {
-  background-color: darkorange;
+  background: #5a6268;
+}
+
+/* Search Box */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  padding: 10px 12px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  transition: 0.3s ease-in-out;
+}
+
+.search-box input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.welcome-text{
+  color:#f8f9fa;
+  font-weight: 900;
+  margin-bottom: 50px;
+}
+
+
+/* Existing styles remain unchanged */
+.apartments {
+  padding: 2rem;
+}
+
+/* Ensure the More Apartments button looks good */
+.glow-on-hover {
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+}
+
+/* Filter Dropdown */
+#priceFilter {
+  border: 2px solid #007bff;
+  border-radius: 6px;
+  padding: 10px;
+  transition: 0.3s ease-in-out;
+}
+
+#priceFilter:focus {
+  border-color: #0056b3;
+  box-shadow: 0px 0px 8px rgba(0, 86, 179, 0.5);
+}
+
+
+
+/* Container styling */
+.apartments {
+  padding: 0 15px;
+}
+
+/* Apartment card styling */
+.apartment-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apartment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.apartment-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Modal body custom styling */
+.modal-body-custom {
+  position: relative;
+  min-height: 600px;
+}
+
+/* Image gallery styling */
+.image-gallery {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  min-height: 150px;
+}
+
+.gallery-image {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, z-index 0s;
+  opacity: 0.5;
+  position: relative;
+  z-index: 1;
+}
+
+.gallery-image.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.gallery-image.expanded {
+  width: 600px;
+  height: 400px;
+  opacity: 1;
+  z-index: 100;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+/* Arrow styling */
+.image-gallery .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  z-index: 5;
+}
+
+.image-gallery .prev-arrow {
+  left: 10px;
+}
+
+.image-gallery .next-arrow {
+  right: 10px;
+}
+
+.image-gallery .arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Search and filter styling */
+.search-box {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #6c757d;
+}
+
+.suggestions-list {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Feature list styling */
+.no-bullets {
+  list-style: none;
+  padding-left: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.feature-item .icon {
+  margin-right: 8px;
+}
+
+/* Star rating styling */
+.star-rating {
+  display: flex;
+}
+
+.star.filled {
+  color: #ffd700;
+  fill: #ffd700;
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+/* Reviewer styling */
+.reviewer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.reviewer .icon {
+  margin-right: 8px;
+}
+
+/* Scrollbar styling */
+.image-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.image-gallery::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.image-gallery::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Button active state */
+button.active {
+  background-color: #ff6b6b;
+  border-color: #ff6b6b;
+  color: white;
+}
+
+/* Ensure 3D tour and map alignment */
+.row > .col-md-7,
+.row > .col-md-5 {
+  padding: 0 15px;
 }
 
 /* Media Queries for Smartphones */
@@ -236,7 +592,7 @@ body, html {
   }
 
   .apartments {
-    padding:  30px;
+    padding: 30px;
   }
 
   .apartments h2 {
@@ -257,7 +613,7 @@ body, html {
   }
 
   .apartment-card h3 {
-    font-size: 18px;
+    font-size:  18px;
   }
 
   .apartment-card p {

@@ -1,92 +1,315 @@
 .apartment-container {
-  padding: 40px 20px;
-  background-color: rgba(0, 0, 0, 0.3); /* Black with 50% opacity */
-  color: white; /* Change text color for better contrast */
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 0 2rem;
 }
-  
-  .apartment-card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, max-height 0.3s ease;
-    overflow: hidden;
-  }
-  
-  .apartment-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .apartment-img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    height: 200px;
-    object-fit: cover;
-  }
-  .text-centers{
-    text-align: center;
-    color: black;
-  }
-  .apartment-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .apartment-text {
-    font-size: 0.9rem;
-    color: #555;
-  }
-  
-  .view-btn {
-    background-color: #007bff;
-    border: none;
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  
-  .view-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  /* Expanded Card Styles */
-  .expanded-details {
-    margin-top: 10px;
-    background: #f1f1f1;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    color: #333;
-  }
-  
-  .expanded-details ul {
-    padding-left: 20px;
-    list-style: none;
-  }
-  
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .icon {
-    color: #007bff;
-  }
-  
 
-  .close-button {
-    background-color: orange; /* Set background color to orange */
-    color: white; /* Set text color to white for contrast */
-    border: none; /* Remove default border */
-  }
-  
-  .close-button:hover {
-    background-color: darkorange; /* Darker shade on hover */
-  }
+.apartment-card {
+  transition: transform 0.3s ease;
+}
 
-  
+.apartment-card:hover {
+  transform: translateY(-5px);
+}
+
+.apartment-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.apartment-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.glow-on-hover {
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+}
+
+.favorite.active {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.star-rating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star.filled {
+  fill: #ffd700;
+  stroke: #ffd700;
+}
+
+.star.empty {
+  fill: none;
+  stroke: #ccc;
+}
+
+.no-bullets {
+  list-style: none;
+  padding-left: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-text {
+  margin-top: 0.5rem;
+}
+
+/* New class for larger search bar */
+.large-search-bar {
+  height: 50px; /* Increased height */
+  font-size: 1.25rem; /* Larger font size */
+  padding: 0.75rem 1rem; /* More padding for comfort */
+}
+
+
+.image-container {
+  position: relative;
+}
+
+.image-navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  font-size: 2rem; /* Adjust size as needed */
+  color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.arrow:hover {
+  color: rgba(255, 255, 255, 1); /* Fully opaque on hover */
+}
+
+
+/* Phone link styling */
+.phone-link {
+  color: #27ae60;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.phone-link:hover {
+  color: #219653;
+  text-decoration: underline;
+}
+
+.phone-link .icon {
+  margin-right: 0.5rem;
+}
+
+/* Adjust spacing for the two-column layout */
+.row > .col-md-6 {
+  padding: 0 15px;
+}
+
+/* Map styling with increased size */
+.map-container {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.map-container:hover {
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+/* Ensure the modal body accommodates the larger map */
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* Adjust the row to prevent overflow with larger map */
+.row {
+  margin: 0 -15px; /* Reset Bootstrap's negative margins if needed */
+}
+
+/* Ensure the map fills its container */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Image gallery styling */
+.image-gallery {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.gallery-image {
+  width: 150px; /* Fixed width for all images */
+  height: 100px; /* Fixed height for all images */
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0.5; /* Faded for non-active images */
+}
+
+.gallery-image.active {
+  opacity: 1; /* Full clarity for active image */
+  transform: scale(1.05); /* Slightly larger for emphasis */
+}
+
+.gallery-image:hover {
+  opacity: 0.8; /* Slightly clearer on hover */
+}
+
+/* Arrow positioning for gallery */
+.image-gallery .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.image-gallery .prev-arrow {
+  left: 10px;
+}
+
+.image-gallery .next-arrow {
+  right: 10px;
+}
+
+.image-gallery .arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Ensure 3D tour and map alignment */
+.row > .col-md-7,
+.row > .col-md-5 {
+  padding: 0 15px;
+}
+
+/* Modal body custom styling to accommodate expanded image */
+.modal-body-custom {
+  position: relative; /* Make modal body the positioning context */
+  min-height: 600px; /* Ensure enough height for expanded image */
+}
+
+/* Image gallery styling */
+.image-gallery {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  gap: 15px; /* Spacing between images */
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  min-height: 150px; /* Ensure gallery has enough space for base images */
+}
+
+.gallery-image {
+  width: 100%; /* Base width */
+  height: 100%; /* Base height */
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, z-index 0s;
+  opacity: 0.5; /* Default faded state */
+  position: relative;
+  z-index: 1; /* Default z-index */
+}
+
+.gallery-image.active {
+  opacity: 1; /* Active image is fully clear */
+  transform: scale(1.05); /* Slightly larger for emphasis */
+}
+
+.gallery-image.expanded {
+  width: 600px; /* Fixed larger width */
+  height: 400px; /* Fixed larger height */
+  opacity: 1; /* Full clarity when expanded */
+  z-index: 100; /* High z-index to float above all content */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Depth effect */
+  position: absolute; /* Position relative to modal-body */
+  left: 50%; /* Center horizontally */
+  top: 50%; /* Center vertically */
+  transform: translate(-50%, -50%); /* Center the image */
+  border-radius: 10px; /* Slightly larger radius for expanded image */
+}
+
+/* Arrow styling */
+.image-gallery .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  z-index: 5; /* Above non-expanded images but below expanded */
+}
+
+.image-gallery .prev-arrow {
+  left: 10px;
+}
+
+.image-gallery .next-arrow {
+  right: 10px;
+}
+
+.image-gallery .arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Ensure 3D tour and map alignment */
+.row > .col-md-7,
+.row > .col-md-5 {
+  padding: 0 15px;
+}
+
+/* Scrollbar styling */
+.image-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.image-gallery::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.image-gallery::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

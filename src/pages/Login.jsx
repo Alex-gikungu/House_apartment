@@ -1,105 +1,127 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Alert, Card } from "react-bootstrap";
-import { Mail, Lock } from "lucide-react"; // Import icons from lucide-react
-import axios from "axios"; // Import axios for making HTTP requests
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
-import "../styles/login.css"; // Import your custom styles
+import { Mail, Lock } from "lucide-react";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
 
-const Login = ({ onLogin, onLogout }) => {
+const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
+  // Add handleChange function to update formData state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Make a POST request to the /login endpoint
       const response = await axios.post("http://127.0.0.1:5000/login", formData);
-
-      // Handle successful login
+      console.log("Login response:", response.data); // Debug
       if (response.status === 200) {
+        const { userId, token } = response.data;
+        console.log("Extracted userId:", userId); // Debug
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("token", token || ""); // Handle if token isn’t returned
+        console.log("Stored userId:", localStorage.getItem("userId")); // Debug
         setSuccess(true);
         setError("");
-        console.log("Login successful:", response.data);
-
-        // Call the onLogin function to update the login state in the parent component
         onLogin();
-
-        // Redirect to the home page after a short delay
-        setTimeout(() => {
-          navigate("/"); // Redirect to the home page
-        }, 1000); // 1-second delay before redirection
+        navigate("/");
       }
     } catch (err) {
-      // Handle errors
-      if (err.response) {
-        // The request was made and the server responded with a status code
-        setError(err.response.data.message || "An error occurred during login.");
-      } else if (err.request) {
-        // The request was made but no response was received
-        setError("No response from the server. Please try again.");
-      } else {
-        // Something else happened
-        setError("An unexpected error occurred. Please try again.");
+      setError("Invalid email or password. Please try again.");
+      setSuccess(false);
+    }
+  };
+
+  const responseGoogle = async (credentialResponse) => {
+    const { credential } = credentialResponse;
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/google-login", { idToken: credential });
+      console.log("Google login response:", res.data); // Debug
+      if (res.status === 200) {
+        const { userId, token } = res.data;
+        console.log("Google extracted userId:", userId); // Debug
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("token", token || ""); // Handle if token isn’t returned
+        console.log("Stored userId from Google:", localStorage.getItem("userId")); // Debug
+        setSuccess(true);
+        setError("");
+        onLogin();
+        navigate("/");
       }
+    } catch (err) {
+      setError("Google login failed. Please try again.");
       setSuccess(false);
     }
   };
 
   return (
-    <Container className="login-container">
-      <h2 className="text-center my-4">Login</h2>
-      {success && <Alert variant="success">Login successful! Redirecting...</Alert>}
-      {error && <Alert variant="danger">{error}</Alert>}
-      <Card className="login-card">
-        <Card.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <div className="input-wrapper">
-                <Mail className="input-icon" />
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your email"
-                />
-              </div>
-            </Form.Group>
+    <GoogleOAuthProvider clientId="702134413636-ia4lgbqlnavedhpd83toc2d04g0afigf.apps.googleusercontent.com">
+      <Container className="login-container">
+        <h2 className="text-center my-4">Login</h2>
+        {success && <Alert variant="success">Login successful! Redirecting...</Alert>}
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Card className="login-card">
+          <Card.Body>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <div className="input-wrapper">
+                  <Mail className="input-icon" />
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange} // Now defined
+                    required
+                    placeholder="Enter your email"
+                  />
+                </div>
+              </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <div className="input-wrapper">
-                <Lock className="input-icon" />
-                <Form.Control
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter your password"
-                />
-              </div>
-            </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <div className="input-wrapper">
+                  <Lock className="input-icon" />
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange} // Now defined
+                    required
+                    placeholder="Enter your password"
+                  />
+                  <Button variant="link" onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? "Hide" : "Show"}
+                  </Button>
+                </div>
+              </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mt-3">
-              Login
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+              <Button variant="primary" type="submit" className="w-100 mt-3">
+                Login
+              </Button>
+            </Form>
+
+            {/* Google Login Button */}
+            <GoogleLogin
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              className="w-100 mt-3"
+            />
+          </Card.Body>
+        </Card>
+      </Container>
+    </GoogleOAuthProvider>
   );
 };
 
